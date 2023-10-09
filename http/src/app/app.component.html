@@ -3,24 +3,31 @@
 
   <div class="card">
     <div class="form-control">
-      <input type="text" placeholder="Название">
+      <input type="text" [(ngModel)]="titleValue" placeholder="Название" />
     </div>
-    <button class="btn">Добавить</button>
+    <button (click)="addTodo()" class="btn">Добавить</button>
     <button class="btn">Загрузить</button>
   </div>
 
-  <hr>
+  <hr />
 
-  <div class="card" *ngFor="let i of todos">
-    <p>
-      <span [class.completed]="i.completed">{{ i.title | titlecase }}</span>
-      <span>
-        <button class="btn btn-danger">Удалить</button>
-        <button class="btn" [disabled]="i.completed">Завершить</button>
-      </span>
-    </p>
+  <div *ngIf="!isLoading; else loader">
+    <div *ngIf="todos.length; else noItems">
+      <div class="card" *ngFor="let i of todos">
+        <p>
+          <span [class.completed]="i.completed">{{ i.title | titlecase }}</span>
+          <span>
+            <button class="btn btn-danger" (click)="deleteTodo(i.id!)">Удалить</button>
+            <button class="btn" [disabled]="i.completed">Завершить</button>
+          </span>
+        </p>
+      </div>
+    </div>
+    <ng-template #noItems>
+      <p>There are no any todos...</p>
+    </ng-template>
   </div>
+  <ng-template #loader>
+    <p>Loading...</p>
+  </ng-template>
 </div>
-
-
-
