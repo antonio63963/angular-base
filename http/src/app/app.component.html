@@ -6,7 +6,7 @@
       <input type="text" [(ngModel)]="titleValue" placeholder="Название" />
     </div>
     <button (click)="addTodo()" class="btn">Добавить</button>
-    <button class="btn">Загрузить</button>
+    <button class="btn" (click)="fetchTodos()">Загрузить</button>
   </div>
 
   <hr />
@@ -17,8 +17,16 @@
         <p>
           <span [class.completed]="i.completed">{{ i.title | titlecase }}</span>
           <span>
-            <button class="btn btn-danger" (click)="deleteTodo(i.id!)">Удалить</button>
-            <button class="btn" [disabled]="i.completed">Завершить</button>
+            <button class="btn btn-danger" (click)="deleteTodo(i.id!)">
+              Удалить
+            </button>
+            <button
+              class="btn"
+              (click)="completeTodo(i.id!)"
+              [disabled]="i.completed"
+            >
+              Завершить
+            </button>
           </span>
         </p>
       </div>
