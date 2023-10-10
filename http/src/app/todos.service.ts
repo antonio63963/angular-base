@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, delay, throwError } from 'rxjs';
+import { Observable, catchError, delay, map, throwError } from 'rxjs';
 
 export interface Todo {
   completed: boolean;
@@ -18,8 +18,15 @@ export class TodosService {
 
   fetchTodos(): Observable<Todo[]> {
     return this.http
-      .get<Todo[]>('https://jsonplaceholder.typicode.com/todos?_limit=2')
+      .get<Todo[]>('https://jsonplaceholder.typicode.com/todos?_limit=2', {
+        params: new HttpParams().set('_limit', '3'),
+        observe: 'response',
+      })
       .pipe(
+        map((response: {body: any}) => {
+          console.log('Fetch response: ', response);
+          return response.body ;
+        }),
         delay(500),
         catchError((err) => {
           console.log('Error: ', err);

@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   
   fetchTodos() {
     this.todoService.fetchTodos().subscribe((response) => {
+      console.log(response)
       this.todos = response ?? [];
     });
   }
