@@ -13,4 +13,3 @@ export class HomeComponent {
     this.router.navigate(['/posts'])
   }
 }
-ё
