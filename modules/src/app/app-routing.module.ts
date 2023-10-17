@@ -6,13 +6,13 @@ import { HomePageComponent } from './home-page/home-page.component';
   imports: [
     RouterModule.forRoot([
       { path: '', component: HomePageComponent, pathMatch: 'full' },
-      {
-        path: 'about',
-        loadChildren: () =>
-          import('./about-page/about-page.module').then(
-            (m) => m.AboutPageModule
-          ),
-      },
+      // {
+      //   path: 'about',
+      //   loadChildren: () =>
+      //     import('./about-page/about-page.module').then(
+      //       (m) => m.AboutPageModule
+      //     ),
+      // },
     ]),
   ],
   exports: [RouterModule],

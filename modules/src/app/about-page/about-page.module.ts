@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule.forChild([
       {
-        path: '',
+        path: 'about',
         component: AboutPageComponent,
         children: [{ path: 'extra', component: AboutExtraPageComponent }],
       },
