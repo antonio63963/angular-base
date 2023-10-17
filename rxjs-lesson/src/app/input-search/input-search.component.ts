@@ -4,6 +4,7 @@ import {
   debounce,
   debounceTime,
   distinctUntilChanged,
+  fromEvent,
   map,
   tap,
 } from 'rxjs';
@@ -22,16 +23,20 @@ export class InputSearchComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.search$ = new Observable((observer) => {
-     const input = document.getElementById('inp1');
-     input?.addEventListener('input', event => {
-      observer.next(event);
-     })
-    });
+    // this.search$ = new Observable((observer) => {
+    //  const input = document.getElementById('inp1');
+    //  input?.addEventListener('input', event => {
+    //   observer.next(event);
+    //  })
+    // });
+    // BETTER THEN ^
+
+    this.search$ = fromEvent<Event>(document.getElementById('inp1')!, 'input')
     
     this.search$.pipe(
       map((event) => (event.target as HTMLInputElement).value),
       debounceTime(500),
+      map(value => value.length > 3 ? value : ''),
       distinctUntilChanged()
     ).subscribe({
       next: (value) => console.log('output: ', value)
